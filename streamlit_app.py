@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from bson import ObjectId
 
 # Configuración de MongoDB
-MONGO_URI = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/Historical?retryWrites=true&w=majority"
+MONGO_URI = "mongodb+srv://arsanchez5:OOSnhqHfqXwZw1Bs@cluster-historical.73hxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-Historical"
 client = MongoClient(MONGO_URI)
 db = client["AttackHistory"]
 temp_collection = db["TemporaryAlerts"]
