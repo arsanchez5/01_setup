@@ -11,7 +11,12 @@ historical_collection = db["Alerts"]
 
 # Función para listar alertas pendientes
 def list_pending_alerts():
-    return list(temp_collection.find({"status": "pending_review"}))
+    temp_collection = db["TemporaryAlerts"]
+    alerts = list(temp_collection.find({"status": "pending_review"}))
+    for alert in alerts:
+        alert['_id'] = str(alert['_id'])  # Convertir ObjectId a string para evitar errores en JSON
+    return alerts
+
 
 # Función para listar alertas confirmadas
 def list_confirmed_alerts():
@@ -44,7 +49,7 @@ if option == "Pending Alerts":
         st.write(f"Destination: {alert['dst_ap']}")
         st.write(f"Count: {alert['count']}")
         if st.button(f"Confirm as DDoS (ID: {alert['_id']})"):
-            result = confirm_alert(str(alert['_id']))
+            result = confirm_alert(alert['_id'])
             st.success(result)
 
 elif option == "Confirmed Alerts":
